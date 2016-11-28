@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Survey</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+		body{
+			margin:0;
+			padding:0;
+			width:100%;
+			height:100%;
+			background-image:url("https://a.disquscdn.com/get?url=http%3A%2F%2Fimgur.com%2F9WgJg0G.gif&key=Fb01OcaSFPuO84_DCKz5gg");
+			background-position:center;
+			background-repeat:no-repeat;
+			margin-bottom:5%;
+
+		}
+		.top{
+			font-size:40px !important;
+			text-align:center;
+		}
+	
+		h1{
+			margin-top:4%;
+
+		}
+		#input2{
+			margin-bottom:3%;
+		}
+		button{
+			
+			width:150px;
+			margin:0 auto !important;
+			display:block !important;
+		
+		}
+		.wrapper{
+			margin-top:7%;
+			background:rgba(220,220,220,0.6);
+			padding:5% 4%;
+
+		}
+		label{
+			display:block;
+		}
+		.checkbox,.radio{
+			font-size:24px;
+		}
+		#select{
+			width:600px;
+		}
+		#feedback{
+			margin-top:1%;
+			background-color:green;
+			text-align:center;
+			font-size:25px;
+			color:white;
+			display:none;
+		}
+		#wrong{
+			margin-top:1%;
+			background-color:red;
+			text-align:center;
+			font-size:25px;
+			color:white;
+			display:none;
+			
+
+		}
+	
+		p{
+			font-size:22px;
+		}
+
+		</style>
+	
+		
+	</head>
+	<body>
+	<section id="questions">
+		<div class="container">
+			<div class="row">
+				<div class="wrapper">
+				<div class="col-md-12">
+					<h1 class="top">survey</h1>
+				</div>
+				<div class="col-md-12">
+					<h1 id="q0"></h1>
+					<div class="checkbox">
+				    <label>
+				      <input type="checkbox" class="checkbox" value="San Francisco">
+				      <p>San Francisco</p>
+				    </label>
+				    <label>
+				      <input type="checkbox" class="checkbox" value="Los Angeles"> 
+				          <p>Los Angeles</p>
+				    </label>
+				      <label>
+				      <input type="checkbox" class="checkbox" value="Seattle"> 
+				          <p >Seattle</p>
+				    </label>
+				      <label>
+				      <input type="checkbox" class="checkbox" value="Santa Cruz">
+				          <p>Santa Cruz</p>
+				    </label>
+				  </div>
+				</div>
+				<div class="col-md-12">
+					<h1 id="q1"></h1>
+					<select class="form-control" id="select">
+					  <option >Chose a color</option>	
+					  <option class="option" value="Black">Black</option>
+					  <option class="option" value="White">White</option>
+					  <option class="option" value="Red">Red</option>
+					  <option class="option" value="Blue">Blue</option>
+					  <option class="option" value="Yellow">Yellow</option>
+					</select>
+				</div>
+				<div class="col-md-12">
+					<h1 id="q2"></h1>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" class="radio" value="cat">
+					    <p id="dio0">Cat</p>
+					  </label>
+					    <label>
+					    <input type="radio" name="optionsRadios" class="radio" value="Dog">
+					   	<p id="dio1">Dog</p>
+					  </label>
+					    <label>
+					    <input type="radio" name="optionsRadios" class="radio" value="Monkey">
+					   	<p id="dio2">Monkey</p>
+					  </label>
+					</div>
+				</div>
+				<button class="btn btn-danger btn-lg" id="button" onclick="submitSurvey()">submit</button>
+				<div id="feedback">Thank you for your survey</div>
+				<div id="wrong"></div>
+			</div>
+			</div>
+		</div>
+	</section>
+
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+	//questions
+	var questions = ["What cities have you visited","What's your favorite color?", "What's your dream pet?"];
+	for(var i=0; i<questions.length; i++){
+	document.getElementById("q"+i).innerHTML = questions[i];
+		}
+
+//surveyResult
+var surveyOne={
+	city:[],
+	color:[],
+	pet:[]
+};	
+var surveyResult=[];
+//submit funcion
+function submitSurvey(){
+	var checkbox = document.getElementsByClassName("checkbox");	
+	for(var i=0; i<checkbox.length; i++){
+		if(checkbox[i].checked){	
+		 console.log(checkbox[i].value);
+		surveyOne.city.push(checkbox[i].value);
+		var valueCheck = checkbox[i].value;
+		}
+	}
+	 if(valueCheck == undefined){
+			document.getElementById("wrong").textContent = "Please complete que 1"
+			document.getElementById("wrong").style.display = "block";
+		}
+
+		var option = document.getElementsByClassName("option");	
+	for(var i=0; i<option.length; i++){
+		if(option[i].selected){
+		 console.log(option[i].value);
+		surveyOne.color.push(option[i].value);
+		var valueOpt = option[i].value;
+		}
+		}
+		if(valueOpt == undefined){
+			document.getElementById("wrong").textContent = "Please complete que 2"
+			document.getElementById("wrong").style.display = "block";
+	}
+		var radio = document.getElementsByClassName("radio");	
+	for(var i=0; i<radio.length; i++){
+		if(radio[i].checked){
+		console.log(radio[i].value);
+		  surveyOne.pet.push(radio[i].value);
+		   var valueRad = radio[i].value;
+		}
+		
+	}
+	 if(valueRad == undefined){
+			document.getElementById("wrong").textContent = "Please complete que 3"
+			document.getElementById("wrong").style.display = "block";
+		}
+	console.log(surveyOne);
+	console.log("your survey answer is "+ surveyOne.city +" " + surveyOne.color + " "+surveyOne.pet);
+	surveyResult.push(surveyOne);
+	 var survey=document.getElementById("questions");
+	 for(i=0,v=0,j=0; i<checkbox.length, v<option.length, j<radio.length; i++,j++,v++){
+
+	 	if(surveyOne.city != "" && surveyOne.color !="" && surveyOne.pet !=""){
+	 			document.getElementById("wrong").style.display = "none";
+	 		document.getElementById("feedback").style.display = "block";
+	 		setTimeout(function(){
+
+location.reload();
+
+
+	},2000);
+	 	}
+	}
+
+}
+
+
+
+
+
+
+
+	
+
+
+
+
+	</script>
+</html>
